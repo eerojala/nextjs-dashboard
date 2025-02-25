@@ -11,6 +11,8 @@ export default function Search({ placeholder }: { placeholder: string }) {
 
   const handleSearch = useDebouncedCallback(term => {
     const params = new URLSearchParams(searchParams) // Url parameters
+    params.set('page', '1')
+    
     console.log(`Searching... ${term}`)
 
     if (term) {
@@ -20,7 +22,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
     }
 
     replace(`${pathname}?${params.toString()}`) // Updates the URL with the user's search data, e.g. /dashboard/invoices?query=lee if the user searches for "Lee"
-  }, 300) // given function will run 0.3 seconds after user input stops
+  }, 300) // given function will run 0.3 seconds after user input stops, do to prevent eventhandler from running from each individual key input
 
   return (
     <div className="relative flex flex-1 flex-shrink-0">
